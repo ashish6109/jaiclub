@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>HACK JAI CLUB</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{
+  --primary: #1a0f2e;
+  --secondary: #4cc9f0;
+  --accent: #9d4edd;
+  --highlight: #ffd60a;
+  --glow-blue: rgba(76, 201, 240, 0.6);
+  --glow-purple: rgba(157, 78, 221, 0.6);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  min-height:100vh;
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(135deg, var(--primary) 0%, #000 100%);
+  color:#fff;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* STARFIELD - ALWAYS RUNNING */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, var(--highlight), transparent),
+    radial-gradient(2px 2px at 80px 80px, rgba(255,214,10,0.6), transparent),
+    radial-gradient(1px 1px at 150px 40px, var(--highlight), transparent);
+  background-repeat:repeat;background-size:200px 100px;
+  animation:stars 25s linear infinite;z-index:0;pointer-events:none;
+}
+
+@keyframes stars{from{transform:translateY(0);}to{transform:translateY(-200px);}}
+
+.page{display:none;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.page.active{display:flex;flex-direction:column;}
+
+.wrap{max-width:900px;width:100%;background:rgba(26,15,46,0.5);backdrop-filter:blur(25px);border-radius:24px;padding:50px 40px;text-align:center;border:1px solid var(--glow-blue);box-shadow:0 40px 80px rgba(0,0,0,0.9);position:relative;z-index:10;}
+
+.logo{width:240px;height:240px;border-radius:50%;margin:0 auto 30px;background:linear-gradient(135deg,var(--primary),#2a1a4a);border:3px solid var(--glow-blue);box-shadow:0 0 50px var(--glow-blue);position:relative;overflow:hidden;}
+.logo::before{content:'';position:absolute;top:-3px;left:-3px;right:-3px;bottom:-3px;background:linear-gradient(45deg,var(--secondary),var(--accent),var(--highlight),var(--secondary));border-radius:50%;animation:rotate 4s linear infinite;z-index:-1;}
+@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.logo img{width:90%;height:90%;object-fit:contain;}
+
+h1.title{font-size:44px;font-weight:900;background:linear-gradient(135deg,var(--highlight),var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0 0 40px 0;letter-spacing:3px;text-transform:uppercase;animation:glow 2s ease-in-out infinite alternate;}
+@keyframes glow{from{filter:drop-shadow(0 0 20px var(--highlight));}to{filter:drop-shadow(0 0 40px var(--secondary));}}
+
+.options{display:flex;gap:25px;justify-content:center;flex-wrap:wrap;margin:30px 0;}
+.opt-btn{background:linear-gradient(135deg,rgba(76,201,240,0.3),rgba(157,78,221,0.3));backdrop-filter:blur(20px);border:2px solid transparent;padding:18px 32px;border-radius:50px;color:#fff;font-weight:800;cursor:pointer;min-width:180px;display:inline-flex;gap:12px;align-items:center;justify-content:center;box-shadow:0 15px 35px var(--glow-blue);transition:all 0.4s ease;font-size:15px;letter-spacing:1px;text-transform:uppercase;position:relative;overflow:hidden;}
+.opt-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:left 0.6s;}
+.opt-btn:hover::before{left:100%;}
+.opt-btn:hover{transform:translateY(-8px);border-color:var(--secondary);box-shadow:0 25px 50px var(--glow-blue);}
+
+.back-btn{position:absolute;top:20px;left:20px;background:rgba(26,15,46,0.8);backdrop-filter:blur(15px);border:2px solid var(--glow-blue);color:var(--secondary);padding:12px 20px;border-radius:25px;font-weight:700;cursor:pointer;transition:all 0.3s;box-shadow:0 10px 25px rgba(0,0,0,0.5);z-index:100;}
+.back-btn:hover{transform:translateY(-3px);box-shadow:0 15px 35px var(--glow-blue);}
+
+.small-note{margin-top:25px;color:var(--secondary);font-size:15px;font-weight:700;opacity:0.95;}
+
+/* MINI SCREEN MODE */
+.mini-mode{position:fixed;bottom:20px;right:20px;width:320px;height:200px;background:rgba(26,15,46,0.95);backdrop-filter:blur(25px);border-radius:20px;border:2px solid var(--glow-blue);box-shadow:0 20px 60px rgba(0,0,0,0.9);z-index:1000000;display:none;flex-direction:column;padding:20px;}
+.mini-mode.show{display:flex;}
+.mini-mode h3{font-size:16px;margin-bottom:10px;color:var(--highlight);font-weight:900;}
+.mini-mode .result-box{font-size:28px;font-weight:900;text-align:center;padding:15px;border-radius:12px;background:rgba(0,0,0,0.5);border:1px solid var(--glow-blue);margin:10px 0;flex:1;display:flex;align-items:center;justify-content:center;}
+.mini-toggle{position:fixed;bottom:20px;left:20px;width:60px;height:60px;background:var(--secondary);border-radius:50%;border:3px solid #fff;color:#000;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 30px var(--glow-blue);z-index:1000001;display:none;transition:all 0.3s;}
+.mini-toggle:hover{transform:scale(1.1);box-shadow:0 15px 40px var(--glow-blue);}
+
+/* MODAL */
+#modalBackdrop{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(26,15,46,0.98);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;z-index:99999;}
+#modalBackdrop.show{display:flex;}
+.modal{width:95%;max-width:550px;background:rgba(26,15,46,0.95);backdrop-filter:blur(30px);border-radius:20px;padding:35px;border:2px solid var(--glow-blue);box-shadow:0 50px 100px rgba(0,0,0,0.95);z-index:100000;}
+.input-row{display:flex;gap:15px;margin:25px 0;}
+input[type="text"]{flex:1;padding:18px 22px;border-radius:12px;background:rgba(26,15,46,0.8);color:#fff;border:2px solid var(--glow-blue);font-size:17px;font-weight:700;}
+.btn-go{padding:18px 30px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--highlight),#ffaa00);color:#000;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 10px 30px rgba(255,214,10,0.5);}
+.result-box{margin:25px 0;padding:25px;border-radius:16px;background:rgba(26,15,46,0.8);border:2px solid var(--glow-blue);font-size:38px;font-weight:900;text-align:center;min-height:90px;}
+.history{margin-top:25px;font-size:15px;color:var(--secondary);font-weight:700;}
+.big-display{font-size:55px;}.small-display{font-size:38px;}
+
+@media(max-width:600px){.wrap{padding:30px 20px;}.logo{width:180px;height:180px;}.options{gap:15px;flex-direction:column;}.opt-btn{min-width:250px;}}
+</style>
+</head>
+<body>
+
+<!-- MAIN DASHBOARD -->
+<div id="page-main" class="page active">
+  <button class="back-btn" onclick="showPage('getstart.html')">
+    <i class="fas fa-arrow-left"></i> Back
+  </button>
+  
+  <div class="wrap">
+    <div class="logo">
+      <img src="https://uploads.onecompiler.io/43by6n3b4/44my27gu3/jaiclub.jpg" alt="JAI CLUB">
+    </div>
+    <h1 class="title">JAI CLUB</h1>
+    
+    <div class="options">
+      <button class="opt-btn" data-type="number">
+        <i class="fas fa-hashtag"></i> Number Hack
+      </button>
+      <button class="opt-btn" data-type="colour">
+        <i class="fas fa-palette"></i> Colour Hack
+      </button>
+      <button class="opt-btn" data-type="bigsmall">
+        <i class="fas fa-arrows-alt-v"></i> Big/Small Hack
+      </button>
+    </div>
+    
+    <div class="small-note">🔢 Enter last 3 digits → Press GO → Instant Results ✨</div>
+  </div>
+</div>
+
+<!-- MINI SCREEN MODE -->
+<div id="miniMode" class="mini-mode">
+  <h3 id="miniTitle">Latest Result</h3>
+  <div id="miniResult" class="result-box">—</div>
+</div>
+<div id="miniToggle" class="mini-toggle" onclick="toggleMiniMode()">
+  <i class="fas fa-compress"></i>
+</div>
+
+<!-- MODAL -->
+<div id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalTitle">Hack Tool</h2>
+    <div class="input-row">
+      <input id="digitInput" maxlength="3" placeholder="Enter last 3 digits">
+      <button class="btn-go" id="goBtn">GO</button>
+    </div>
+    <div id="resultBox" class="result-box">— Click button above —</div>
+    <div class="history">History: <span id="histList">none</span></div>
+  </div>
+</div>
+
+<script>
+// STATE
+const PERIOD_STORE = {};
+const state = { openFor: null, hist: { number:[], colour:[], bigsmall:[] }, currentPage: 'main' };
+
+// PAGES
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  if (page === 'main') {
+    document.getElementById('page-main').classList.add('active');
+    state.currentPage = 'main';
+  } else {
+    window.location.href = page;
+  }
+}
+
+// EVENT LISTENERS
+document.addEventListener('DOMContentLoaded', function() {
+  // Hack buttons
+  document.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      openModal(this.dataset.type);
+    });
+  });
+  
+  // GO button
+  document.getElementById('goBtn').addEventListener('click', doGo);
+  
+  // Enter key
+  document.getElementById('digitInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') doGo();
+  });
+  
+  // Modal close
+  document.getElementById('modalBackdrop').addEventListener('click', e => {
+    if (e.target.id === 'modalBackdrop') closeModal();
+  });
+  
+  console.log('🚀 JAI CLUB Ultimate Loaded');
+});
+
+function openModal(type) {
+  state.openFor = type;
+  document.getElementById('modalTitle').textContent = 
+    type === 'number' ? '🔢 Number Hack' :
+    type === 'colour' ? '🎨 Colour Hack' : '📏 Big/Small Hack';
+    
+  document.getElementById('digitInput').value = '';
+  document.getElementById('resultBox').textContent = 'Enter 3 digits & press GO';
+  updateHistory();
+  
+  document.getElementById('modalBackdrop').classList.add('show');
+  setTimeout(() => document.getElementById('digitInput').focus(), 200);
+}
+
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('show');
+}
+
+// HACK LOGIC
+function digitInfluence(str) {
+  let sum = 0; for (let x of str) sum += Number(x); return sum % 10;
+}
+
+function generateRandom(type, period) {
+  const influence = digitInfluence(period);
+  if (type === 'number') return ['0','1','2','3','4','5','6','7','8','9'][(Math.random()*100+influence)%10|0];
+  if (type === 'colour') return ['Red','Green'][(Math.random()*100+influence)%2|0];
+  if (type === 'bigsmall') return ['Big','Small'][(Math.random()*100+influence)%2|0];
+}
+
+function doGo() {
+  let per = document.getElementById('digitInput').value.trim().slice(0,3);
+  if (!per) { alert('⚠️ Enter 3 digits!'); return; }
+
+  const type = state.openFor;
+  if (!PERIOD_STORE[type]) PERIOD_STORE[type] = {};
+  const now = Date.now();
+
+  if (PERIOD_STORE[type][per]?.expire > now) {
+    showResult(PERIOD_STORE[type][per].result);
+    return;
+  }
+
+  const result = generateRandom(type, per);
+  PERIOD_STORE[type][per] = { result, expire: now + 120000 };
+  showResult(result);
+  showMiniMode(result, type);
+}
+
+function showResult(res) {
+  const type = state.openFor;
+  const box = document.getElementById('resultBox');
+  box.textContent = res;
+  
+  if (type === 'colour') box.style.color = res === 'Red' ? '#ff6b6b' : '#51cf66';
+  else if (type === 'number') { box.style.color = 'var(--highlight)'; box.style.fontSize = '50px'; }
+  else box.classList.add(res === 'Big' ? 'big-display' : 'small-display');
+  
+  state.hist[type].unshift(res);
+  if (state.hist[type].length > 10) state.hist[type].pop();
+  updateHistory();
+}
+
+function updateHistory() {
+  const h = state.hist[state.openFor] || [];
+  document.getElementById('histList').textContent = h.slice(0,6).join(' • ') || 'none';
+}
+
+// MINI MODE
+function showMiniMode(result, type) {
+  document.getElementById('miniTitle').textContent = type.toUpperCase() + ' RESULT';
+  document.getElementById('miniResult').textContent = result;
+  document.getElementById('miniMode').classList.add('show');
+  document.getElementById('miniToggle').style.display = 'flex';
+}
+
+function toggleMiniMode() {
+  const mini = document.getElementById('miniMode');
+  const toggle = document.getElementById('miniToggle');
+  mini.classList.toggle('show');
+  toggle.innerHTML = mini.classList.contains('show') ? 
+    '<i class="fas fa-expand"></i>' : '<i class="fas fa-compress"></i>';
+}
+
+// BACK BUTTONS EVERYWHERE
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
