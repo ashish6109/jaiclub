@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAI CLUB - Get Started</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+    --primary: #1a0f2e;
+    --secondary: #4cc9f0;
+    --accent: #9d4edd;
+    --highlight: #ffd60a;
+    --bg-dark: #0f0b1f;
+    --card: rgba(26, 15, 46, 0.4);
+    --glow-blue: rgba(76, 201, 240, 0.6);
+    --glow-purple: rgba(157, 78, 221, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--bg-dark) 50%, #000000 100%);
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ⭐ STARFIELD */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, var(--highlight), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 214, 10, 0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, var(--highlight), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: stars 25s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes stars {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-200px); }
+}
+
+/* ✨ FLOATING PARTICLES */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: linear-gradient(45deg, var(--secondary), var(--accent));
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { width: 8px; height: 8px; left: 15%; animation-delay: 0s; }
+.particle:nth-child(2) { width: 6px; height: 6px; left: 30%; animation-delay: 2s; }
+.particle:nth-child(3) { width: 10px; height: 10px; left: 70%; animation-delay: 1s; }
+.particle:nth-child(4) { width: 7px; height: 7px; left: 85%; animation-delay: 3s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+    50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+}
+
+.container {
+    background: var(--card);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--glow-blue);
+    padding: 50px 40px;
+    width: 520px;
+    max-width: 95%;
+    border-radius: 28px;
+    box-shadow: 
+        0 40px 80px rgba(0,0,0,0.9),
+        0 0 80px var(--glow-blue),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    z-index: 10;
+    animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+h1 {
+    background: linear-gradient(135deg, var(--highlight) 0%, var(--secondary) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 40px;
+    margin-bottom: 35px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 
+        0 0 40px var(--highlight),
+        0 0 80px var(--secondary);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { filter: drop-shadow(0 0 20px var(--highlight)); }
+    to { filter: drop-shadow(0 0 40px var(--secondary)); }
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 35px;
+    background: rgba(26, 15, 46, 0.6);
+    border-radius: 16px;
+    padding: 4px;
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glow-blue);
+}
+
+.tab {
+    flex: 1;
+    padding: 16px 24px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.tab:hover::before {
+    left: 100%;
+}
+
+.tab.active {
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    color: #000;
+    box-shadow: 0 8px 25px var(--glow-blue);
+    transform: translateY(-2px);
+}
+
+.form { 
+    display: none; 
+    animation: fadeInForm 0.5s ease-out;
+}
+.form.active { display: block; }
+@keyframes fadeInForm {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group { 
+    margin-bottom: 22px; 
+    text-align: left; 
+    position: relative;
+}
+
+label { 
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 15px;
+    margin-bottom: 8px;
+    display: block;
+    letter-spacing: 0.5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 2px solid rgba(76, 201, 240, 0.3);
+    background: rgba(26, 15, 46, 0.7);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 
+        0 0 25px var(--glow-blue),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+select {
+    background: rgba(26, 15, 46, 0.7) !important;
+    color: #ffffff !important;
+    cursor: pointer;
+}
+
+select option {
+    background: var(--primary);
+    color: #fff;
+}
+
+.readonly {
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.2), rgba(255, 170, 0, 0.2)) !important;
+    border-color: var(--highlight) !important;
+    color: var(--highlight) !important;
+    font-weight: 800;
+}
+
+.phone-box {
+    display: flex;
+    gap: 12px;
+}
+.phone-box select { width: 42%; }
+.phone-box input { width: 58%; }
+
+button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 25px;
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    border: none;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #000;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 40px var(--glow-blue),
+        0 0 40px var(--glow-purple),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.7s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 
+        0 30px 60px var(--glow-blue),
+        0 0 60px var(--glow-purple);
+}
+
+/* LOADER */
+.loader-box {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(26, 15, 46, 0.95);
+    backdrop-filter: blur(20px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    flex-direction: column;
+}
+
+.loader {
+    width:100px;
+    height:100px;
+    border:8px solid rgba(76, 201, 240, 0.3);
+    border-top-color: var(--secondary);
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--highlight);
+    text-shadow: 0 0 20px var(--highlight);
+}
+
+/* SUCCESS POPUP */
+.success-popup {
+    margin-top:30px;
+    font-size:36px;
+    background: linear-gradient(135deg, var(--highlight), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight:900;
+    opacity:0;
+    animation: fadeIn 1s forwards 0.5s;
+    text-shadow: 0 0 40px var(--highlight);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity:0; transform: scale(0.8) rotate(-10deg); }
+    to { opacity:1; transform: scale(1) rotate(0deg); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 30px;
+    }
+    h1 {
+        font-size: 34px;
+        letter-spacing: 2px;
+    }
+    .tab {
+        font-size: 16px;
+        padding: 14px 20px;
+    }
+    button {
+        font-size: 16px;
+        padding: 18px;
+    }
+    .phone-box {
+        flex-direction: column;
+    }
+    .phone-box select,
+    .phone-box input {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+<!-- ✨ PARTICLES -->
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<div class="container">
+    <h1><i class="fas fa-crown"></i> JAI CLUB</h1>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showForm('login')">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="tab" onclick="showForm('signup')">
+            <i class="fas fa-user-plus"></i> Signup
+        </button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="login" class="form active">
+        <div class="form-group">
+            <label><i class="fas fa-id-card"></i> ID</label>
+            <input type="text" id="login-id" placeholder="Enter your ID">
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="login-pass" placeholder="Enter Password">
+        </div>
+        <button type="button" onclick="loginNow()">
+            <i class="fas fa-rocket"></i> Login Now
+        </button>
+    </form>
+
+    <!-- SIGNUP -->
+    <form id="signup" class="form">
+        <div class="form-group">
+            <label><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-phone"></i> Phone Number</label>
+            <div class="phone-box">
+                <select id="country-code"></select>
+                <input type="text" id="number" placeholder="Enter mobile number">
+            </div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-coins"></i> Amount (Fixed)</label>
+            <input type="text" id="amount" value="₹499" class="readonly" readonly>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-credit-card"></i> Payment Method</label>
+            <input type="text" value="GoCreator Pay" class="readonly" readonly>
+        </div>
+        <button type="button" onclick="continuePay()">
+            <i class="fas fa-arrow-right"></i> Continue Payment
+        </button>
+    </form>
+</div>
+
+<script>
+function showForm(form) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+    document.querySelector(`.tab[onclick="showForm('${form}')"]`).classList.add('active');
+    document.getElementById(form).classList.add('active');
+}
+
+/* Correct login details - JAI CLUB */
+const fixedID = "JAI.CLUB";
+const fixedPass = "JAI@9325";
+
+/* LOGIN + LOADER + SUCCESS */
+function loginNow() {
+    let id = document.getElementById("login-id").value.trim();
+    let pass = document.getElementById("login-pass").value.trim();
+
+    if(id === fixedID && pass === fixedPass){
+        // Create loader
+        let box = document.createElement("div");
+        box.className = "loader-box";
+        box.innerHTML = `
+            <div class="loader"></div>
+            <div class="loader-text">Processing Login...</div>
+        `;
+        document.body.appendChild(box);
+
+        // Show success after 1.5 seconds
+        setTimeout(() => {
+            box.innerHTML = `
+                <div class="loader" style="border-top-color: var(--highlight);"></div>
+                <div class="success-popup">LOGIN SUCCESSFUL ✔</div>
+                <div style="margin-top:15px; font-size:18px; color:var(--secondary);">Redirecting to Dashboard...</div>
+            `;
+        }, 1500);
+
+        // Redirect after 3 seconds to hack page
+        setTimeout(() => {
+            window.location.href = "hack10club.html"; // Changed to jaiclub.html
+        }, 3000);
+
+    } else {
+        // Shake animation for wrong credentials
+        const inputs = document.querySelectorAll('#login input');
+        inputs.forEach(input => {
+            input.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => input.style.animation = '', 500);
+        });
+        alert("❌ Incorrect ID or Password!\n\nID: JAI.CLUB\nPass: JAI@9325");
+    }
+}
+
+/* SIGNUP PAYMENT */
+function continuePay() {
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("country-code").value + document.getElementById("number").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const amount = document.getElementById("amount").value.replace('₹', '');
+
+    if(!name || !phone || !email){
+        alert("⚠️ Please fill all required fields!");
+        return;
+    }
+
+    const url = `https://www.gocreator.in/dp?product=3faac597-13fb-4577-8ecf-b58a805e2bc6` +
+                `&name=${encodeURIComponent(name)}` +
+                `&email=${encodeURIComponent(email)}` +
+                `&phone=${encodeURIComponent(phone)}` +
+                `&amount=${encodeURIComponent(amount)}`;
+
+    window.location.href = url;
+}
+
+/* COUNTRY CODES WITH FLAGS */
+const countries = [
+    {code:"+1", flag:"🇺🇸", name:"United States"},
+    {code:"+44", flag:"🇬🇧", name:"United Kingdom"},
+    {code:"+91", flag:"🇮🇳", name:"India"},
+    {code:"+92", flag:"🇵🇰", name:"Pakistan"},
+    {code:"+61", flag:"🇦🇺", name:"Australia"},
+    {code:"+81", flag:"🇯🇵", name:"Japan"},
+    {code:"+82", flag:"🇰🇷", name:"South Korea"},
+    {code:"+86", flag:"🇨🇳", name:"China"},
+    {code:"+971", flag:"🇦🇪", name:"UAE"},
+    {code:"+974", flag:"🇶🇦", name:"Qatar"}
+];
+
+const countrySelect = document.getElementById("country-code");
+countries.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.code;
+    opt.textContent = `${c.flag} ${c.code}`;
+    countrySelect.appendChild(opt);
+});
+countrySelect.value = "+91"; // Default India
+
+/* SHAKE ANIMATION */
+const shakeKeyframes = `
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+`;
+const style = document.createElement('style');
+style.textContent = shakeKeyframes;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
