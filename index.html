@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAI CLUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a0f2e;
+            --secondary: #4cc9f0;
+            --accent: #9d4edd;
+            --highlight: #ffd60a;
+            --glow-blue: rgba(76, 201, 240, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary), #0a0717);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Compact Starfield */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(1.5px 1.5px at 25px 35px, var(--highlight), transparent),
+                radial-gradient(1px 1px at 60px 75px, rgba(255,214,10,0.6), transparent);
+            background-repeat: repeat;
+            background-size: 150px 80px;
+            animation: stars 18s linear infinite;
+            opacity: 0.8;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes stars {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-150px); }
+        }
+
+        .container {
+            background: rgba(26, 15, 46, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 35px 25px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--glow-blue);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.6),
+                0 0 30px var(--glow-blue);
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--glow-blue);
+            box-shadow: 0 0 25px var(--glow-blue);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--highlight), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border: none;
+            padding: 16px 24px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 
+                0 10px 25px rgba(76, 201, 240, 0.4),
+                0 0 20px var(--glow-blue);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 35px rgba(76, 201, 240, 0.6),
+                0 0 30px var(--glow-blue);
+        }
+
+        button:active {
+            transform: translateY(-2px);
+        }
+
+        button i {
+            font-size: 18px;
+        }
+
+        .subtitle {
+            margin-top: 20px;
+            color: var(--secondary);
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        /* MOBILE FIRST - PERFECT RESPONSIVE */
+        @media (min-width: 480px) {
+            .container {
+                max-width: 420px;
+                padding: 45px 35px;
+            }
+            
+            .logo {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .title {
+                font-size: 32px;
+                letter-spacing: 3px;
+            }
+            
+            .buttons {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            button {
+                padding: 18px 30px;
+                font-size: 16px;
+                min-width: 180px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
+            }
+            
+            .container {
+                max-width: 500px;
+                padding: 55px 45px;
+            }
+            
+            .logo {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .title {
+                font-size: 36px;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="https://uploads.onecompiler.io/43by6n3b4/44my27gu3/jaiclub.jpg" alt="JAI CLUB">
+        </div>
+
+        <!-- TITLE -->
+        <h1 class="title">JAI CLUB</h1>
+
+        <!-- BUTTONS -->
+        <div class="buttons">
+            <button onclick="window.location.href='getstart.html'">
+                <i class="fas fa-rocket"></i>
+                Get Started
+            </button>
+            <button onclick="window.location.href='https://t.me/BADSHAHTRADERE'">
+                <i class="fab fa-telegram"></i>
+                Contact
+            </button>
+        </div>
+
+        <!-- SUBTITLE -->
+        <div class="subtitle">
+            Premium Gaming Club
+        </div>
+    </div>
+</body>
+</html>
